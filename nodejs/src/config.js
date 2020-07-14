@@ -3,7 +3,7 @@ const config = {
    port: 3000
  },
  db: {
-   host: 'localhost',
+   host: 'mongodb',
    port: 27017,
    name: 'db'
  }

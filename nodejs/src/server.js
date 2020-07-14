@@ -2,6 +2,16 @@
 
 const express = require('express');
 const config = require('./config');
+const mongoose = require('mongoose');
+
+const { db: { host, port, name } } = config;
+const connectionString = `mongodb://${host}:${port}/${name}`;
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+
+const Cat = mongoose.model('Cat', { name: String });
+
+const kitty = new Cat({ name: 'Cutie' });
+kitty.save().then(() => console.log('Database connection and insert was successful'));
 
 // Constants
 const PORT = 3000;

@@ -42,20 +42,38 @@ curl -v localhost:3000
 ```
 docker pull mongo
 ```
-## Create a folder for mounting
-```
-sudo mkdir -p /mongodata
-sudo chmod +w /mongodata
-```
 
 ## run docker image of mongodb
 ```
-docker run -it -v /data/db:/mongodata \
+docker run -it \
+  -p 27017:27017 \
   --network docker_network \
   --name mongodb -d mongo
 ```
 
+
 ## SSH to mongodb server for testing
 ```
 docker exec -it mongodb /bin/bash
+docker exec -it docker_node_js_express  /bin/sh
 ```
+
+## Docker networking
+- You can connect one docker to another by using --network while running docker container.
+- SSH to a container and then ping container_name
+- Or try below command to test network between 2 containers.
+```
+docker exec -ti docker_node_js_express ping mongodb
+```
+
+
+## Cleanup
+```
+docker rm -f docker_node_js_express
+docker rmi -f docker_node_js_express:v1
+```
+
+
+#### Read More: 
+- https://hub.docker.com/_/mongo
+- https://mongoosejs.com/docs/index.html
