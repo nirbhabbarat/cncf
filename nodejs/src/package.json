@@ -1,13 +1,14 @@
 {
-  "name": "docker_web_app",
+  "name": "docker_node_js_express",
   "version": "1.0.0",
   "description": "Node.js on Docker",
-  "author": "First Last <first.last@example.com>",
+  "author": "Nirbhab Barat <nirbhabbarat@gmail.com>",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "mongoose": "^5.1.6"
   }
 }

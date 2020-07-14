@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const config = require('./config');
 
 // Constants
 const PORT = 3000;
