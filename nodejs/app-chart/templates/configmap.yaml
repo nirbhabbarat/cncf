@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: special-config
+  labels:
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.php: |
+    <?php 
+    $config['database'] = {{ .Values.DB.Name }}
+    $config['username'] = {{ .Values.DB.Username }}
+
+  php.ini: |
+    test=444
