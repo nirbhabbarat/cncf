@@ -78,8 +78,13 @@ docker rmi -f docker_node_js_express:v1
 # Deploy docker images to Kubernetes (minikube and  skaffold)
 - https://kubernetes.io/docs/concepts/services-networking/connect-applications-service
 
+k8s.yml and skaffold.yml are present in this repo, it will deploy single pod and expose mongodb pod to nodejs pod
+```
+skaffold dev
+```
 
 
 #### Read More: 
 - https://hub.docker.com/_/mongo
 - https://mongoosejs.com/docs/index.html
+- https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/
