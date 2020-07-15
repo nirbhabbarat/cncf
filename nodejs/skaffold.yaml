@@ -1,0 +1,12 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: nodejs
+build:
+  artifacts:
+  - image: docker_node_js_express
+deploy:
+  kubectl:
+    manifests:
+    - k8s.yml
+    - app-chart/templates/configmap.yaml
