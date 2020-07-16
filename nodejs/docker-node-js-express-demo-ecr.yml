@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-node-js-express-demo-ecr
+  labels:
+    app: docker-node-js-express-demo-ecr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-node-js-express-demo-ecr
+  template:
+    metadata:
+      labels:
+        app: docker-node-js-express-demo-ecr
+    spec:
+      containers:
+      - name: docker-node-js-express-demo-ecr
+        image: 313726026672.dkr.ecr.REGION.amazonaws.com/docker-node-js-express-demo:latest
+        command: ['sh', '-c', 'echo Container is Running ; sleep 3600']

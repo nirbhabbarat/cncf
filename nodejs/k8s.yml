@@ -34,16 +34,16 @@ spec:
   selector:
     run: docker-node-js-express
 ---
-  apiVersion: v1
-  kind: Service
-  metadata:
-    name: mongodb
-    labels:
-      run: mongodb
-  spec:
-    ports:
-    - port: 27017
-      # targetPort: 27017
-      protocol: TCP
-    selector:
-      run: mongodbpod # this should match
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    run: mongodb
+spec:
+  ports:
+  - port: 27017
+    # targetPort: 27017
+    protocol: TCP
+  selector:
+    run: mongodbpod # this should match
