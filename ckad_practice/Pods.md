@@ -16,7 +16,7 @@ Imagine a node/server dies, kubernetes is going to relocate thad pod to another 
 - StatefulSet
 - DaemonSet
 
-### Examples 1
+### Examples 1 - Memory & CPU Limits
 
 [Create a nginx pod with cpu, memory and exposing port 80](yaml_examples/pod-example1.yml)
 
@@ -25,7 +25,7 @@ kubectl apply -f yaml_examples/pod-example1.yml
 kubectl get pods -n mynamespace
 
 ```
-### Example 2
+### Example 2 - Command and arguments
 [Passing command and arguments to the pod](yaml_examples/pod-example2.yml)
 ```
 kubectl apply -f yaml_examples/pod-example2.yml
@@ -34,7 +34,7 @@ kubectl exec --stdin --tty example-pod-with-nginx-cmd-arg -- cat /proc/1/cmdline
 ```
 
 
-### Example 3
+### Example 3 - Run as user
 [Run pod with security context or run with user or group present on the node](yaml_examples/pod-example3.yml)
 
 ```
@@ -42,3 +42,29 @@ kubectl apply -f yaml_examples/pod-example3.yml
 kubectl get pod example-pod-with-security-context
 kubectl logs example-pod-with-security-context
 ```
+
+### Example 4
+[Mount empty volume in pod](yaml_examples/pod-example4.yml)
+
+```
+kubectl apply -f yaml_examples/pod-example4.yml
+kubectl get pod example-pod-with-security-context
+kubectl logs example-pod-with-security-context
+```
+
+
+### Example 5 - MuiltiContainer pod
+Notice 2 containers running inside 1 pod.
+```
+kubectl apply -f yaml_examples/pod-example5.yml
+kubectl describe pod example-pod-multicontainer
+```
+
+
+### Example 6 - Using configmap inside pod as file
+```
+kubectl apply -f yaml_examples/pod-example6-config.yml
+kubectl apply -f yaml_examples/pod-example6.yml
+kubectl exec  -it example-pod-configmap -- cat /etc/myconfig/game-special-key
+```
+

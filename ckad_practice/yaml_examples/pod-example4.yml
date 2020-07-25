@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod-volumes
+  labels:
+    name: example-pod-volumes
+    type: busybox
+spec:
+  containers:
+  - name: example-pod-volumes
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", "echo sleeping && sleep 9999"]
+    volumeMounts:
+     - name: vol-name
+       mountPath: /etc/vol
+  volumes:
+  - name: vol-name
+    emptyDir: {}

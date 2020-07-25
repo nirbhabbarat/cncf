@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod-multicontainer
+  labels:
+    name: example-pod-multicontainer
+    type: busybox
+spec:
+  containers:
+  - name: example-pod-multicontainer01
+    image: busybox
+    args: ["-c", "echo sleep && sleep 9999"]
+    command: ["/bin/sh"]
+  - name: example-pod-multicontainer02
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", "echo sleep && sleep 9999"]
