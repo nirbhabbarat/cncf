@@ -14,3 +14,10 @@ spec:
     image: busybox
     command: ["/bin/sh"]
     args: ["-c", "whoami && echo sleeping && sleep 9999"]
+    resources:
+      limits:
+        cpu: "2"
+        memory: "200Mi"
+      requests:
+        cpu: "1"
+        memory: "100Mi"

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment02
+  labels:
+    name: example-deployment02
+    type: nginx
+spec:
+  selector:
+    matchLabels:
+      name: example-deployment02
+  template:
+    metadata:
+      name: example-deployment02
+      labels:
+        name: example-deployment02
+    spec: 
+      containers:
+      - name: example-deployment02
+        image: nginx:1.7.9

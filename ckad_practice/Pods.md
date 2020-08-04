@@ -68,3 +68,7 @@ kubectl apply -f yaml_examples/pod-example6.yml
 kubectl exec  -it example-pod-configmap -- cat /etc/myconfig/game-special-key
 ```
 
+### Example 7 - Using Liveness probe and readiness probe
+```
+kubectl apply -f yaml_examples/pod-example7.yml
+```

@@ -40,3 +40,10 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 
 ## PODs
 [Go to pods readme](Pods.md)
+
+## Deployments
+[Go to deployments readme](Deployments.md)
+
+
+## Jobs and CronJobs
+[Go to Jobs readme](Jobs.md)
