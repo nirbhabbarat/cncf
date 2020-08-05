@@ -6,3 +6,15 @@ Kubernetes provides the ability to easily run container workloads in a distribut
 - https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 - https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/
 
+## Example - run a simple job and print hello
+```
+kubectl apply -f yaml_examples/job-example1.yml
+kubectl get jobs
+kubectl get pods | grep example-job | awk '{print $1}'| xargs kubectl logs
+```
+
+## Example - run a simple cron job and print hello every minute
+```
+kubectl apply -f yaml_examples/job-example2.yml
+kubectl get pods -w
+```
