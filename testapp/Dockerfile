@@ -4,5 +4,5 @@ WORKDIR /src/app
 COPY src /src/app
 RUN npm install
 COPY . /src/app
-EXPOSE 3000
+EXPOSE 8080
 CMD [ "npm", "start" ]

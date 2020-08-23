@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment01
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: example-deployment-selector
+  template:
+    metadata:
+      name: example-deployment
+      labels:
+        name: example-deployment-selector
+    spec:
+      containers:
+        name: example-deployment
+        image: nginx
+        resources:
+          limits:
+            cpu: "2"
+            memory: "200Mi"
+          requests:
+            cpu: "1"
+            memory: "100Mi"

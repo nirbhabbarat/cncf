@@ -1,13 +1,13 @@
 ## The GitLab Server URL (with protocol) that want to register the runner against
 ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
 ##
-gitlabUrl: https://gitlab.192.168.99.101.nip.io/
+gitlabUrl: https://gitlab.192.168.99.100.nip.io/
 
 ## The registration token for adding new Runners to the GitLab server. This must
 ## be retrieved from your GitLab instance.
 ## ref: https://docs.gitlab.com/ee/ci/runners/
 ##
-runnerRegistrationToken: "23qMSbKf6Pa_9YK58voo"
+runnerRegistrationToken: "YMCDYocyXujPXECEy7Lz"
 
 ## Set the certsSecretName in order to pass custom certificates for GitLab Runner to use
 ## Provide resource name for a Kubernetes Secret Object in the same namespace,
