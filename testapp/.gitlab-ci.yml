@@ -1,11 +1,13 @@
 # This file is a template, and might need editing before it works on your project.
+
+variables:
+  KUBECONFIG: /etc/deploy/config
+
 docker-build-master:
   # Official docker image.
   image: docker:latest
   services:
     - name: docker:18.09.7-dind
-      entrypoint: ["dockerd-entrypoint.sh"]
-      command: ["--insecure-registry", "registry.192.168.99.100.nip.io"]
   variables:
     DOCKER_HOST: tcp://localhost:2375
   stage: build
@@ -14,3 +16,16 @@ docker-build-master:
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
     - docker push "$CI_REGISTRY_IMAGE"
+
+deploy-helm:
+  image: alpine/helm
+  stage: deploy
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${KUBECONF} | base64 -d > ${KUBECONFIG}
+    # - kubectl config use-context homekube
+    - helm init --client-only
+    - helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+    - helm repo update
+  script:
+    - helm upgrade  --install deploy  ./chart

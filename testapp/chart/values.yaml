@@ -5,12 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: gcr.io/google-samples/hello-app
-  pullPolicy: IfNotPresent
+  repository: nirbhabbarat/private-testapp
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0"
+  tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets: ["name": "regcred"]
 nameOverride: ""
 fullnameOverride: ""
 
