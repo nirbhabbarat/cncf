@@ -21,7 +21,7 @@ console.log(process.env);
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send(process.env);
+  res.send("<b>Hostname: </b>"+process.env.HOSTNAME);
 });
 
 app.listen(PORT, HOST);

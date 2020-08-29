@@ -1,19 +1,25 @@
 # This file is a template, and might need editing before it works on your project.
 
-
+stages:
+  - "docker-build"
+  - "review"
 # TESTED CODE TO PUSH DOCKER IMAGE TO PRIVATE DOCKER HUB
-# docker-build-master:
-#   image: docker:latest
-#   services:
-#     - name: docker:18.09.7-dind
-#   variables:
-#     DOCKER_HOST: tcp://localhost:2375
-#   stage: build
-#   before_script:
-#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-#   script:
-#     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-#     - docker push "$CI_REGISTRY_IMAGE"
+docker-build:
+  image: docker:latest
+  services:
+    - name: docker:18.09.7-dind
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  stage: docker-build
+  before_script:
+    - printenv
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - printenv
+    - docker build --pull -t "$CI_REGISTRY_IMAGE":"$CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE"
+  only:
+    - merge_requests
 
 # TESTED CODE FOR TRIGGERING HELM CHARTS FOR DEPLOYING
 variables:
@@ -22,34 +28,32 @@ variables:
   NS: default
 
 review:
+  stage: review
   image: alpine/helm
   before_script:
     - mkdir -p /etc/deploy
     - echo ${KUBECONF} | base64 -d > ${KUBECONFIG}
-    # - helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-    # - helm repo update
   script:
-    - printenv
     - DYNAMIC_ENVIRONMENT_URL=$CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA
-    - helm upgrade --install $DYNAMIC_ENVIRONMENT_URL  -n $NS --set ingress.hosts[0].host=$DYNAMIC_ENVIRONMENT_URL.$BASE_URL  --set ingress.hosts[0].paths={"/"}  ./chart
-    - echo "DYNAMIC_ENVIRONMENT_URL=$DYNAMIC_ENVIRONMENT_URL" >> deploy.env
+    - helm upgrade --install $DYNAMIC_ENVIRONMENT_URL  -n $NS --set image.tag="$CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA" --set ingress.hosts[0].host=$DYNAMIC_ENVIRONMENT_URL.$BASE_URL  --set ingress.hosts[0].paths={"/"}  ./chart
   environment:
-    name: dynamicenv/$CI_COMMIT_REF_NAME
-    url: http://example.com
-    # on_stop: stop_review
-  artifacts:
-    reports:
-      dotenv: deploy.env
+    name: dynamicenv/$CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA
+    url: http://$CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA.$BASE_URL
+    on_stop: stop_review
   only:
     - merge_requests
 
-# stop_review:
-#   image: alpine/helm
-#   script:
-#     - helm delete $DYNAMIC_ENVIRONMENT_URL -n $NS
-#   when: manual
-#   environment:
-#     name: dynamicenv/$DYNAMIC_ENVIRONMENT_URL
-#     action: stop
-#   only:
-#     - merge_requests
+stop_review:
+  stage: review
+  image: alpine/helm
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${KUBECONF} | base64 -d > ${KUBECONFIG}
+  script:
+    - helm delete $CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA -n $NS
+  when: manual
+  environment:
+    name: dynamicenv/$CI_PROJECT_TITLE-$CI_COMMIT_SHORT_SHA
+    action: stop
+  only:
+    - merge_requests
