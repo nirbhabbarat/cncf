@@ -1,4 +1,17 @@
 # Practice for Certified Kubernetes Application Developer (CKAD
+
+## Check other readme
+
+- [Pods.md](Crons.md)
+- [Deployments.md](Deployments.md)
+- [Jobs.md](Jobs.md)
+- [Services.md](Services.md)
+- [NetworkPolicy.md](NetworkPolicy.md)
+- [PersistentVolume.md](PersistentVolume.md)
+
+
+## Course Scope
+
 ### Core Concepts (13%)
 - Understand Kubernetes API primitives
 - Create and configure basic Pods
@@ -37,13 +50,3 @@
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node (multi-node is experimental) Kubernetes cluster in your laptop.
 
 - [how to setup minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#:~:text=Minikube%20is%20a%20tool%20that,it%20day-to-day.)
-
-## PODs
-[Go to pods readme](Pods.md)
-
-## Deployments
-[Go to deployments readme](Deployments.md)
-
-
-## Jobs and CronJobs
-[Go to Jobs readme](Jobs.md)
